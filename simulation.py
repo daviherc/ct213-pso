@@ -141,7 +141,7 @@ class Simulation:
         dot_product = track_tangent.dot(robot_direction)  # dot(r_k, t_k)
         # rewardk=vk*dot(rk,tk)-w*|ek|
 
-        return linear * dot_product - abs(error) * .5
+        return linear * dot_product - (abs(error) * .5 if detection else 0.5)
 
     def draw(self, window):
         """

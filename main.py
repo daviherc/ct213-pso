@@ -84,7 +84,7 @@ def plot_results():
     plt.title('Best Quality Convergence')
     plt.grid()
     plt.savefig('line_best_convergence.%s' % fig_format, format=fig_format)
-    # plt.show()
+    plt.show()
 
 
 def print_text():
@@ -224,21 +224,20 @@ simulation = Simulation(line_follower, track)
 
 # Initializing pygame
 pygame.init()
-# window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-# pygame.display.set_caption("Lab 4 - Line Follower Optimization")
-window = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Lab 4 - Line Follower Optimization")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('Arial', 20, True)
 
 # Initializing auxiliary variables
 run = True  # if the program is running
-accelerated_mode = True  # if the execution is in accelerated mode (faster than realtime)
+accelerated_mode = False  # if the execution is in accelerated mode (faster than realtime)
 training = True  # if the robot is training (the optimization is executing)
 draw_path = True
 # Obs.: if the robot is not training, the best solution found so far will be shown
 # how much faster than realtime the simulation is executed in accelerated mode
 accelerated_factor = DEFAULT_ACCELERATED_FACTOR
-# previous_keys = pygame.key.get_pressed()
+previous_keys = pygame.key.get_pressed()
 episode_time = 0.0  # the elapsed time of the current episode
 quality = 0.0  # quality of the current episode so far
 training_iteration = 1  # the number of the training iteration
@@ -260,13 +259,13 @@ while run:
     clock.tick(DRAW_FREQUENCY)
 
     # Close the program if the quit button was pressed
-    # for event in pygame.event.get():
-    #     if event.type == pygame.QUIT:
-    #         run = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
 
     # Processing input
-    # keys = pygame.key.get_pressed()
-    # process_input()
+    keys = pygame.key.get_pressed()
+    process_input()
 
     # Executing the simulation
     # To allow faster than realtime execution, the simulation executes num_steps
@@ -282,8 +281,7 @@ while run:
         if episode_time >= MAX_EPISODE_TIME:
             # Prints the results of the current training iteration
             print('iter: ' + str(training_iteration) +
-                  ', ' + 'params: ' + format_position(position) + ', quality: ' + str(quality) +
-                  'best_so_far: ' + str(pso.get_best_value()))
+                  ', ' + 'params: ' + format_position(position) + ', quality: ' + str(quality))
             if training:
                 # If the robot is training, update the optimization algorithm
                 training_iteration += 1
@@ -308,11 +306,10 @@ while run:
     window.fill((224, 255, 255))
     simulation.draw(window)
     print_text()
-    # pygame.display.update()
-    if training_iteration > 3000:
-        plot_results()
+    pygame.display.update()
+
     # Save the keyboard input for the next iteration
-    # previous_keys = keys
+    previous_keys = keys
 
 # Quitting pygame
 pygame.quit()
