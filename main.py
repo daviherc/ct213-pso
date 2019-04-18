@@ -282,7 +282,8 @@ while run:
         if episode_time >= MAX_EPISODE_TIME:
             # Prints the results of the current training iteration
             print('iter: ' + str(training_iteration) +
-                  ', ' + 'params: ' + format_position(position) + ', quality: ' + str(quality))
+                  ', ' + 'params: ' + format_position(position) + ', quality: ' + str(quality) +
+                  'best_so_far: ' + pso.get_best_value())
             if training:
                 # If the robot is training, update the optimization algorithm
                 training_iteration += 1
