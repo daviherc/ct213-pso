@@ -224,9 +224,9 @@ simulation = Simulation(line_follower, track)
 
 # Initializing pygame
 pygame.init()
-# window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-# pygame.display.set_caption("Lab 4 - Line Follower Optimization")
-window = Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Lab 4 - Line Follower Optimization")
+# window = Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('Arial', 20, True)
 
@@ -260,13 +260,13 @@ while run:
     clock.tick(DRAW_FREQUENCY)
 
     # Close the program if the quit button was pressed
-    # for event in pygame.event.get():
-    #     if event.type == pygame.QUIT:
-    #         run = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
 
     # Processing input
-    # keys = pygame.key.get_pressed()
-    # process_input()
+    keys = pygame.key.get_pressed()
+    process_input()
 
     # Executing the simulation
     # To allow faster than realtime execution, the simulation executes num_steps
@@ -295,7 +295,7 @@ while run:
             else:
                 # If the robot is not training, evaluate the best parameters found so far
                 position = pso.get_best_position()
-                # capture_screen()  # Captures the screen at the end of the episode
+                capture_screen()  # Captures the screen at the end of the episode
             # Resetting the simulation to evaluate the new position
             episode_time = 0.0
             quality = 0.0
@@ -307,12 +307,12 @@ while run:
     window.fill((224, 255, 255))
     simulation.draw(window)
     print_text()
-    # pygame.display.update()
+    pygame.display.update()
     if training_iteration > 2000:
         plot_results()
 
     # Save the keyboard input for the next iteration
-    # previous_keys = keys
+    previous_keys = keys
 
 # Quitting pygame
 pygame.quit()
