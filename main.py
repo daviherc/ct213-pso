@@ -84,7 +84,7 @@ def plot_results():
     plt.title('Best Quality Convergence')
     plt.grid()
     plt.savefig('line_best_convergence.%s' % fig_format, format=fig_format)
-    plt.show()
+    # plt.show()
 
 
 def print_text():
@@ -283,7 +283,7 @@ while run:
             # Prints the results of the current training iteration
             print('iter: ' + str(training_iteration) +
                   ', ' + 'params: ' + format_position(position) + ', quality: ' + str(quality) +
-                  'best_so_far: ' + pso.get_best_value())
+                  'best_so_far: ' + str(pso.get_best_value()))
             if training:
                 # If the robot is training, update the optimization algorithm
                 training_iteration += 1
@@ -309,7 +309,7 @@ while run:
     simulation.draw(window)
     print_text()
     # pygame.display.update()
-    if num_steps > 1e6:
+    if training_iteration > 3000:
         plot_results()
     # Save the keyboard input for the next iteration
     # previous_keys = keys
