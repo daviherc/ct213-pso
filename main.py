@@ -232,13 +232,13 @@ font = pygame.font.SysFont('Arial', 20, True)
 
 # Initializing auxiliary variables
 run = True  # if the program is running
-accelerated_mode = False  # if the execution is in accelerated mode (faster than realtime)
+accelerated_mode = True  # if the execution is in accelerated mode (faster than realtime)
 training = True  # if the robot is training (the optimization is executing)
 draw_path = True
 # Obs.: if the robot is not training, the best solution found so far will be shown
 # how much faster than realtime the simulation is executed in accelerated mode
 accelerated_factor = DEFAULT_ACCELERATED_FACTOR
-previous_keys = pygame.key.get_pressed()
+# previous_keys = pygame.key.get_pressed()
 episode_time = 0.0  # the elapsed time of the current episode
 quality = 0.0  # quality of the current episode so far
 training_iteration = 1  # the number of the training iteration
@@ -260,13 +260,13 @@ while run:
     clock.tick(DRAW_FREQUENCY)
 
     # Close the program if the quit button was pressed
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+    # for event in pygame.event.get():
+    #     if event.type == pygame.QUIT:
+    #         run = False
 
     # Processing input
-    keys = pygame.key.get_pressed()
-    process_input()
+    # keys = pygame.key.get_pressed()
+    # process_input()
 
     # Executing the simulation
     # To allow faster than realtime execution, the simulation executes num_steps
@@ -308,9 +308,10 @@ while run:
     simulation.draw(window)
     print_text()
     # pygame.display.update()
-
+    if num_steps > 1e6:
+        plot_results()
     # Save the keyboard input for the next iteration
-    previous_keys = keys
+    # previous_keys = keys
 
 # Quitting pygame
 pygame.quit()
