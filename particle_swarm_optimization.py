@@ -88,18 +88,22 @@ class ParticleSwarmOptimization:
         phi_g = self.hyperparams.social_parameter
 
         for particle in self.particles:
+            # calculate velocity
             rp = random.uniform(0, 1)
             rg = random.uniform(0, 1)
             particle.v = (w * particle.v +
                           phi_p * rp * (particle.best_position - particle.x) +
                           phi_g * rg * (self.get_best_position() - particle.x))
-            particle.x = particle.x + particle.v
 
+            # evaluate best values
             if particle.evaluation > particle.best_evaluation:
                 particle.best_position = particle.x
                 if particle.evaluation > self.best_value:
                     self.best_position = particle.x
                     self.best_value = particle.evaluation
+
+            # update particle
+            particle.x = particle.x + particle.v
             particle.evaluation = -inf
 
     def notify_evaluation(self, value):
