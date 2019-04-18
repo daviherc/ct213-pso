@@ -84,7 +84,7 @@ def plot_results():
     plt.title('Best Quality Convergence')
     plt.grid()
     plt.savefig('line_best_convergence.%s' % fig_format, format=fig_format)
-    plt.show()
+    # plt.show()
 
 
 def print_text():
@@ -260,9 +260,9 @@ while run:
     clock.tick(DRAW_FREQUENCY)
 
     # Close the program if the quit button was pressed
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+    # for event in pygame.event.get():
+    #     if event.type == pygame.QUIT:
+    #         run = False
 
     # Processing input
     # keys = pygame.key.get_pressed()
@@ -308,6 +308,8 @@ while run:
     simulation.draw(window)
     print_text()
     # pygame.display.update()
+    if training_iteration > 2000:
+        plot_results()
 
     # Save the keyboard input for the next iteration
     # previous_keys = keys
