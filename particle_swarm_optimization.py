@@ -49,6 +49,9 @@ class ParticleSwarmOptimization:
         self.particles = [Particle(lower_bound, upper_bound) for _ in range(hyperparams.num_particles)]
         self.idx = 0  # index of particle simulation order
 
+        self.best_value = -inf
+        self.best_position = self.particles[0].x
+
     def get_best_position(self):
         """
         Obtains the best position so far found by the algorithm.
@@ -56,7 +59,7 @@ class ParticleSwarmOptimization:
         :return: the best position.
         :rtype: numpy array.
         """
-        return sorted(self.particles, key=lambda x: x.evaluation)[-1].x
+        return self.best_position
 
     def get_best_value(self):
         """
@@ -65,7 +68,7 @@ class ParticleSwarmOptimization:
         :return: value of the best position.
         :rtype: float.
         """
-        return sorted(self.particles, key=lambda x: x.evaluation)[-1].evaluation
+        return self.best_value
 
     def get_position_to_evaluate(self):
         """
@@ -94,6 +97,10 @@ class ParticleSwarmOptimization:
 
             if particle.evaluation > particle.best_evaluation:
                 particle.best_position = particle.x
+                if particle.evaluation > self.best_value:
+                    self.best_position = particle.x
+                    self.best_value = particle.evaluation
+            particle.evaluation = -inf
 
     def notify_evaluation(self, value):
         """
