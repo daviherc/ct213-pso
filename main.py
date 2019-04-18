@@ -224,8 +224,9 @@ simulation = Simulation(line_follower, track)
 
 # Initializing pygame
 pygame.init()
-window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Lab 4 - Line Follower Optimization")
+# window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+# pygame.display.set_caption("Lab 4 - Line Follower Optimization")
+window = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('Arial', 20, True)
 
@@ -306,7 +307,7 @@ while run:
     window.fill((224, 255, 255))
     simulation.draw(window)
     print_text()
-    pygame.display.update()
+    # pygame.display.update()
 
     # Save the keyboard input for the next iteration
     previous_keys = keys
