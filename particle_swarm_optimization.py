@@ -59,8 +59,8 @@ class ParticleSwarmOptimization:
         :return: the best position.
         :rtype: numpy array.
         """
-        # return np.array([1.020711, 225.415793, 252.935767, 19.327095])
-        return self.best_position
+        return np.array([0.662178, 168.874148, 370.308441, 13.060545])
+        # return self.best_position
 
     def get_best_value(self):
         """
